@@ -2019,24 +2019,32 @@
     function weightInputs(rowId) {
       return rowId === undefined ? [$('weight'), $('weight-lb')] : [$('b' + rowId + '-wt'), $('b' + rowId + '-wtlb')];
     }
-    function applySyncedWeightValue(el, value) {
-      // Keep the raw arithmetic formula when kg/lb conversion yields the same value.
-      // Display rounding (six decimals) must not erase the formula.
+    function applySyncedWeightValue(el, value, derivedFormula) {
+      // Both weight fields retain editable conversion formulas.
       const expr = _exprMap.get(el) || '';
       const previous = expr ? _evalExpr(expr) : NaN;
       const unchanged = Number.isFinite(previous) &&
         Math.abs(previous - value) <= Math.max(0.000001, Math.abs(value) * 0.00000001);
-      applyExprValue(el, value, unchanged ? expr : '');
+      applyExprValue(el, value, derivedFormula || (unchanged ? expr : ''));
+    }
+    function weightExpression(el) {
+      return _exprMap.get(el) || el.value;
     }
     function writeWeightPair(kg, rowId, editedUnit) {
       const [kgInput, lbInput] = weightInputs(rowId);
+      const fromKg = editedUnit === 'kg' && kgInput.hasAttribute('data-expr-input');
+      const fromLb = editedUnit === 'lb' && lbInput.hasAttribute('data-expr-input');
       if (editedUnit !== 'kg') {
-        if (kgInput.hasAttribute('data-expr-input')) applySyncedWeightValue(kgInput, kg);
-        else kgInput.value = formatWeight(kg);
+        if (kgInput.hasAttribute('data-expr-input')) {
+          const expr = fromLb ? '(' + weightExpression(lbInput) + ')*' + KG_PER_LB : '';
+          applySyncedWeightValue(kgInput, kg, expr);
+        } else kgInput.value = formatWeight(kg);
       }
       if (editedUnit !== 'lb') {
-        if (lbInput.hasAttribute('data-expr-input')) applySyncedWeightValue(lbInput, kgToLb(kg));
-        else lbInput.value = formatWeight(kgToLb(kg));
+        if (lbInput.hasAttribute('data-expr-input')) {
+          const expr = fromKg ? '(' + weightExpression(kgInput) + ')/' + KG_PER_LB : '';
+          applySyncedWeightValue(lbInput, kgToLb(kg), expr);
+        } else lbInput.value = formatWeight(kgToLb(kg));
       }
       kgInput.dataset.weightKg = String(kg);
       kgInput.dataset.syncedWeightValue = kgInput.value;
