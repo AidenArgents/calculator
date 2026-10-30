@@ -1480,9 +1480,10 @@
                 style="background:#fefce8;border-color:#fde047"></div>
           </div>
           <div class="kit-panel" id="kit-panel" style="display:none">
-            <div style="font-size:11px;color:var(--t3);line-height:1.6;margin-bottom:8px">开发阶段组合装：每行一个配件，成本和重量自动加总到上方。长宽高填<strong>组合后的包装尺寸</strong>，不要把各件尺寸相加。</div>
+            <div style="font-size:11px;color:var(--t3);line-height:1.6;margin-bottom:8px">开发阶段组合装：每行一个配件，可填数字或算式，按数量汇总成本和重量。请核对内含件数（仓库服务费）；长宽高填<strong>组合后的包装尺寸</strong>，不要把各件尺寸相加。</div>
             <div class="kit-head"><span>配件</span><span>成本 ￥</span><span>重量 kg</span><span>×</span><span></span></div>
             <div id="kit-rows"></div>
+            <div id="kit-warning" role="alert" style="display:none;color:#b91c1c;font-size:11px;margin:3px 0 8px"></div>
             <button type="button" class="kit-add" onclick="addKitPart()">＋ 添加配件</button>
           </div>
           <div style="font-size:11px;color:var(--t3);line-height:1.7;margin-bottom:10px">
@@ -1818,36 +1819,113 @@
       });
     }
     let productFillMode = 'single';
+    const PRODUCT_FORM_IDS = ['cost', 'weight', 'weight-lb', 'qty', 'dqty', 'diml', 'dimw', 'dimh', 'wfs-type'];
+    const productDrafts = { single: null, kit: null };
     let kitParts = [{ name: '', cost: '', wt: '', qty: 1 }, { name: '', cost: '', wt: '', qty: 1 }];
+
+    // 单品和组合装各自保留输入；切换时不再把上一种模式的成本/尺寸误带入另一种模式。
+    function saveProductDraft() {
+      const snapshot = {};
+      PRODUCT_FORM_IDS.forEach(id => {
+        const el = $(id);
+        snapshot[id] = { value: el.value, expr: _exprMap.get(el) || '',
+          num: el.dataset.num, weightKg: el.dataset.weightKg,
+          syncedWeightValue: el.dataset.syncedWeightValue };
+      });
+      productDrafts[productFillMode] = snapshot;
+    }
+    function restoreProductDraft(mode) {
+      const draft = productDrafts[mode];
+      PRODUCT_FORM_IDS.forEach(id => {
+        const el = $(id), saved = draft && draft[id];
+        if (el.hasAttribute('data-expr-input')) clearExprState(el);
+        el.value = saved ? saved.value : ((id === 'qty' || id === 'dqty') ? '1' : (id === 'wfs-type' ? '0' : ''));
+        ['num', 'weightKg', 'syncedWeightValue'].forEach(key => {
+          if (saved && saved[key] !== undefined) el.dataset[key] = saved[key];
+          else delete el.dataset[key];
+        });
+        if (saved && saved.expr && el.hasAttribute('data-expr-input')) {
+          _exprMap.set(el, saved.expr);
+          el.title = '等式：' + saved.expr + ' = ' + (saved.num || saved.value);
+        }
+      });
+    }
     function setProductFillMode(mode) {
-      productFillMode = mode === 'kit' ? 'kit' : 'single';
+      const next = mode === 'kit' ? 'kit' : 'single';
+      if (next !== productFillMode) {
+        saveProductDraft();
+        productFillMode = next;
+        restoreProductDraft(next);
+      }
       $('fill-single-btn')?.classList.toggle('on', productFillMode === 'single');
       $('fill-kit-btn')?.classList.toggle('on', productFillMode === 'kit');
-      if ($('kit-panel')) $('kit-panel').style.display = productFillMode === 'kit' ? '' : 'none';
-      const lock = productFillMode === 'kit';
-      ['cost', 'weight', 'weight-lb'].forEach(id => {
-        const el = $(id); if (!el) return;
-        el.readOnly = lock;
-      });
+      $('kit-panel').style.display = productFillMode === 'kit' ? '' : 'none';
+      ['cost', 'weight', 'weight-lb'].forEach(id => { $(id).readOnly = productFillMode === 'kit'; });
       if (productFillMode === 'kit') {
-        const empty = kitParts.every(p => p.cost === '' && p.wt === '');
-        if (empty) {
-          const c = $('cost').value, w = $('weight').value;
-          if (c !== '' || w !== '') kitParts[0] = { name: kitParts[0].name, cost: c, wt: w, qty: 1 };
-        }
         renderKitRows();
         applyKitTotals();
+      } else {
+        updateWeightSummary();
+        invalidateResults();
       }
     }
+    function kitDisplayValue(rawValue) {
+      const raw = String(rawValue ?? '').trim(), num = _evalExpr(raw);
+      if (!Number.isFinite(num)) return raw;
+      const hasOperator = /[+\-*/]/.test(raw.replace(/^-/, ''));
+      return hasOperator ? String(Number(num.toFixed(6))) : raw;
+    }
     function renderKitRows() {
-      const box = $('kit-rows'); if (!box) return;
-      box.innerHTML = kitParts.map((p, i) => `<div class="kit-row">
-        <input placeholder="配件${i + 1}" value="${escapeHTML(p.name)}" oninput="updateKitPart(${i},'name',this.value)">
-        <input inputmode="decimal" placeholder="成本" value="${escapeHTML(String(p.cost))}" oninput="updateKitPart(${i},'cost',this.value)">
-        <input inputmode="decimal" placeholder="kg" value="${escapeHTML(String(p.wt))}" oninput="updateKitPart(${i},'wt',this.value)">
-        <input inputmode="numeric" value="${escapeHTML(String(p.qty))}" oninput="updateKitPart(${i},'qty',this.value)">
-        <button type="button" class="kit-del" onclick="removeKitPart(${i})" ${kitParts.length <= 2 ? 'disabled' : ''} title="删除">×</button>
-      </div>`).join('');
+      const box = $('kit-rows');
+      box.innerHTML = kitParts.map((p, i) => {
+        const delDisabled = kitParts.length <= 2 ? ' disabled' : '';
+        return '<div class="kit-row" data-kit-index="' + i + '">' +
+          '<input data-kit-field="name" aria-label="配件名称" placeholder="配件' + (i + 1) + '" value="' + escapeHTML(p.name) + '">' +
+          '<input data-kit-field="cost" aria-label="配件成本" inputmode="decimal" placeholder="成本或算式" value="' + escapeHTML(kitDisplayValue(p.cost)) + '">' +
+          '<input data-kit-field="wt" aria-label="配件重量 kg" inputmode="decimal" placeholder="kg或算式" value="' + escapeHTML(kitDisplayValue(p.wt)) + '">' +
+          '<input data-kit-field="qty" aria-label="配件数量" type="number" min="1" step="1" value="' + escapeHTML(p.qty) + '">' +
+          '<button type="button" class="kit-del" onclick="removeKitPart(' + i + ')"' + delDisabled + ' title="删除配件">×</button></div>';
+      }).join('');
+      const addButton = document.querySelector('.kit-add');
+      if (addButton) addButton.disabled = kitParts.length >= 8;
+    }
+    function bindKitEvents() {
+      const box = $('kit-rows');
+      if (box.dataset.bound) return;
+      box.dataset.bound = 'true';
+      const locate = event => {
+        const input = event.target.closest('[data-kit-field]');
+        const row = input && input.closest('[data-kit-index]');
+        return row ? { input, index: Number(row.dataset.kitIndex), field: input.dataset.kitField } : null;
+      };
+      box.addEventListener('input', event => {
+        const hit = locate(event);
+        if (hit) updateKitPart(hit.index, hit.field, hit.input.value);
+      });
+      box.addEventListener('focusin', event => {
+        const hit = locate(event);
+        if (hit && (hit.field === 'cost' || hit.field === 'wt')) {
+          hit.input.value = kitParts[hit.index][hit.field];
+          hit.input.title = '';
+        }
+      });
+      box.addEventListener('focusout', event => {
+        const hit = locate(event);
+        if (hit && (hit.field === 'cost' || hit.field === 'wt')) {
+          hit.input.value = kitDisplayValue(kitParts[hit.index][hit.field]);
+          const raw = String(kitParts[hit.index][hit.field]).trim();
+          if (/[+\-*/]/.test(raw.replace(/^-/, '')) && Number.isFinite(_evalExpr(raw)))
+            hit.input.title = '等式：' + raw + ' = ' + hit.input.value;
+          applyKitTotals();
+        }
+      });
+      box.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && event.target.matches('[data-kit-field]')) {
+          event.preventDefault();
+          event.stopPropagation();
+          event.target.blur();
+        }
+      });
     }
     function updateKitPart(i, key, value) {
       if (!kitParts[i]) return;
@@ -1858,6 +1936,7 @@
       if (kitParts.length >= 8) return;
       kitParts.push({ name: '', cost: '', wt: '', qty: 1 });
       renderKitRows();
+      applyKitTotals();
     }
     function removeKitPart(i) {
       if (kitParts.length <= 2) return;
@@ -1867,23 +1946,34 @@
     }
     function applyKitTotals() {
       if (productFillMode !== 'kit') return;
-      let cost = 0, wt = 0, hasCost = false, hasWt = false;
-      kitParts.forEach(p => {
-        const q = Math.max(1, Math.floor(Number(p.qty) || 1));
-        const c = Number(p.cost), w = Number(p.wt);
-        if (String(p.cost).trim() !== '' && Number.isFinite(c) && c >= 0) { cost += c * q; hasCost = true; }
-        if (String(p.wt).trim() !== '' && Number.isFinite(w) && w >= 0) { wt += w * q; hasWt = true; }
+      const active = kitParts.map((part, i) => ({ part, i })).filter(({ part }) =>
+        [part.name, part.cost, part.wt].some(value => String(value).trim() !== ''));
+      const requiresWeight = active.some(({ part }) => String(part.wt).trim() !== '');
+      const errors = [];
+      let cost = 0, weight = 0;
+      active.forEach(({ part, i }) => {
+        const label = '第' + (i + 1) + '行', qty = Number(part.qty);
+        const c = _evalExpr(part.cost), w = _evalExpr(part.wt);
+        if (!Number.isInteger(qty) || qty < 1) errors.push(label + '数量必须为正整数');
+        if (!Number.isFinite(c)) errors.push(label + '成本缺失或算式无效');
+        if (requiresWeight && !Number.isFinite(w)) errors.push(label + '重量缺失或算式无效');
+        if (Number.isInteger(qty) && qty >= 1) {
+          if (Number.isFinite(c)) cost += c * qty;
+          if (Number.isFinite(w)) weight += w * qty;
+        }
       });
-      applyExprValue($('cost'), hasCost ? cost : '');
-      if (hasWt) writeWeightPair(wt, undefined, 'both');
+      const warning = $('kit-warning');
+      warning.textContent = errors.join('；');
+      warning.style.display = errors.length ? 'block' : 'none';
+      applyExprValue($('cost'), errors.length || !active.length ? '' : cost);
+      if (!errors.length && requiresWeight) writeWeightPair(weight, undefined, 'both');
       else {
         applyExprValue($('weight'), '');
         applyExprValue($('weight-lb'), '');
-        const kgInput = $('weight');
-        if (kgInput) { delete kgInput.dataset.weightKg; delete kgInput.dataset.syncedWeightValue; }
+        delete $('weight').dataset.weightKg;
+        delete $('weight').dataset.syncedWeightValue;
       }
       updateWeightSummary();
-      captureFulfillment();
       invalidateResults();
     }
     const gv = id => {
@@ -2650,7 +2740,7 @@
         }
       } catch (_) {}
       $('side-platform-list').innerHTML = '<div class="slbl">美国 · United States</div>' + Object.entries(C).map(([key, cfg]) => `<button class="pb" id="btn-${key}" onclick="go('${key}')"><div class="pi" style="background:#e5f1ff;color:#0071ce">W</div><div class="pn"><div class="pm">${escapeHTML(cfg.platform)}</div><div class="ps">美国站 · ${cfg.currency}</div></div></button>`).join('');
-      go(cur); renderFulfillment(); renderBatchHead(); addBatchRow(); _setupExprInputs(); setProductFillMode('single');
+      go(cur); renderFulfillment(); renderBatchHead(); addBatchRow(); _setupExprInputs(); bindKitEvents(); setProductFillMode('single');
       let mode = 'single'; try { mode = localStorage.getItem('pricing_us_last_mode') === 'batch' ? 'batch' : 'single'; } catch (_) {}
       setMode(mode);
       document.addEventListener('click', event => {
