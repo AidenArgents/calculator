@@ -1499,16 +1499,16 @@
           <div class="hr"></div>
           <div class="ch"><div class="dot" style="background:var(--green)"></div>物流方式参数</div>
           <div class="f" style="margin-bottom:10px"><label for="wfs-type">WFS 商品属性</label><select id="wfs-type"><option value="0">普通商品</option><option value="1">服装（+$0.50/单位）</option><option value="2">危险品（+$0.50/单位）</option><option value="3">服装及危险品（+$1.00/单位）</option></select></div>
-          <div class="fee-note" style="margin-bottom:12px">两种入仓方式共用 <a href="https://marketplacelearn.walmart.com/guides/Walmart%20Fulfillment%20Services%20(WFS)/WFS%20basics/WFS-fees" target="_blank" rel="noopener">WFS 官方配送费表 ↗</a>（2026-05-27 更新）：按每个填写单位的包装重量、尺寸计算；个数/套沿用原有逐单位计费。售价低于 $10/单位另加 $1。<br>仓储按体积 × 单价 × 天数/30 估算：常规 $0.75；旺季仓龄超30天、或仓龄366–450天 $2.25；仓龄超450天 $7.50/ft³/月，请按预计仓龄修改。<br>头程按实重与材积重较大值摊估；系数默认6000，可按货代调整。报价档位针对整票货物，外箱最低计费、外箱重量及偏远等附加费需另摊，不能把单个小件当作独立整票。</div>
+          <div class="fee-note" style="margin-bottom:12px">两种入仓方式共用 <a href="https://marketplacelearn.walmart.com/guides/Walmart%20Fulfillment%20Services%20(WFS)/WFS%20basics/WFS-fees" target="_blank" rel="noopener">WFS 官方配送费表 ↗</a>（2026-05-27 更新）：按每个填写单位的包装重量、尺寸计算；个数/套沿用原有逐单位计费。售价低于 $10/单位另加 $1。<br>仓储按体积 × 单价 × 天数/30 估算：常规 $0.75；旺季仓龄超30天、或仓龄366–450天 $2.25；仓龄超450天 $7.50/ft³/月，请按预计仓龄修改。<br>头程按实重与材积重较大值摊估；系数默认6000，可按货代调整。物流计费步长默认0（未指定额外进位），可按货代实际规则调整。报价档位针对整票货物，外箱最低计费、外箱重量及偏远等附加费需另摊，不能把单个小件当作独立整票。</div>
           <div class="card" style="padding:12px 14px;margin-bottom:10px;border-left:3px solid #3860e8">
             <div style="font-size:12px;font-weight:700;color:#3860e8;margin-bottom:8px">WFS 海运</div>
-            <div class="g2" style="margin-bottom:8px"><div class="f"><label for="wfs-sea-rate">头程单价 (￥/kg)</label><input type="number" id="wfs-sea-rate" value="15.5" min="0" step="any"></div><div class="f"><label for="wfs-sea-divisor">材积系数 (cm³/kg)</label><input type="number" id="wfs-sea-divisor" value="6000" min="1" step="any"></div><div class="f"><label for="wfs-sea-storage-rate">仓储单价 (USD/ft³/月)</label><input type="number" id="wfs-sea-storage-rate" value="0.75" min="0" step="any"></div><div class="f"><label for="wfs-sea-storage-days">预估仓储天数</label><input type="number" id="wfs-sea-storage-days" value="30" min="0" step="any"></div><div class="f"><label for="wfs-sea-svcfee">额外仓库首件服务费 (￥)</label><input type="number" id="wfs-sea-svcfee" value="0" min="0" step="any"></div><div class="f"><label for="wfs-sea-svcnext">额外仓库续件服务费 (￥)</label><input type="number" id="wfs-sea-svcnext" value="0" min="0" step="any"></div></div>
+            <div class="g2" style="margin-bottom:8px"><div class="f"><label for="wfs-sea-rate">头程单价 (￥/kg)</label><input type="number" id="wfs-sea-rate" value="15.5" min="0" step="any"></div><div class="f"><label for="wfs-sea-divisor">材积系数 (cm³/kg)</label><input type="number" id="wfs-sea-divisor" value="6000" min="1" step="any"></div><div class="f"><label for="wfs-sea-step" title="每件头程按此进位，0为未设置，按原始计费重量×公斤单价估算">头程进位(kg，0不进位)</label><input type="number" id="wfs-sea-step" value="0" min="0" step="any"></div><div class="f"><label for="wfs-sea-storage-rate">仓储单价 (USD/ft³/月)</label><input type="number" id="wfs-sea-storage-rate" value="0.75" min="0" step="any"></div><div class="f"><label for="wfs-sea-storage-days">预估仓储天数</label><input type="number" id="wfs-sea-storage-days" value="30" min="0" step="any"></div><div class="f"><label for="wfs-sea-svcfee">额外仓库首件服务费 (￥)</label><input type="number" id="wfs-sea-svcfee" value="0" min="0" step="any"></div><div class="f"><label for="wfs-sea-svcnext">额外仓库续件服务费 (￥)</label><input type="number" id="wfs-sea-svcnext" value="0" min="0" step="any"></div></div>
             <div id="wfs-sea-preview" class="fee-preview">填写重量和长宽高后计算 WFS 配送费</div>
             <div class="fee-note">参考：美森 CLX 正班 · 美西 · 整票 100 kg+，2026-10-09，<a href="https://vipjiage.com/en/quotes/美森正班.加班、以星、普船、快递派" target="_blank" rel="noopener">美航物流公开报价 ↗</a>。头程单价可按实际报价修改。</div>
           </div>
           <div class="card" style="padding:12px 14px;margin-bottom:10px;border-left:3px solid #e07b00">
             <div style="font-size:12px;font-weight:700;color:#e07b00;margin-bottom:8px">WFS 空运</div>
-            <div class="g2" style="margin-bottom:8px"><div class="f"><label for="wfs-air-rate">头程单价 (￥/kg)</label><input type="number" id="wfs-air-rate" value="54" min="0" step="any"></div><div class="f"><label for="wfs-air-divisor">材积系数 (cm³/kg)</label><input type="number" id="wfs-air-divisor" value="6000" min="1" step="any"></div><div class="f"><label for="wfs-air-storage-rate">仓储单价 (USD/ft³/月)</label><input type="number" id="wfs-air-storage-rate" value="0.75" min="0" step="any"></div><div class="f"><label for="wfs-air-storage-days">预估仓储天数</label><input type="number" id="wfs-air-storage-days" value="30" min="0" step="any"></div><div class="f"><label for="wfs-air-svcfee">额外仓库首件服务费 (￥)</label><input type="number" id="wfs-air-svcfee" value="0" min="0" step="any"></div><div class="f"><label for="wfs-air-svcnext">额外仓库续件服务费 (￥)</label><input type="number" id="wfs-air-svcnext" value="0" min="0" step="any"></div></div>
+            <div class="g2" style="margin-bottom:8px"><div class="f"><label for="wfs-air-rate">头程单价 (￥/kg)</label><input type="number" id="wfs-air-rate" value="54" min="0" step="any"></div><div class="f"><label for="wfs-air-divisor">材积系数 (cm³/kg)</label><input type="number" id="wfs-air-divisor" value="6000" min="1" step="any"></div><div class="f"><label for="wfs-air-step" title="每件头程按此进位，0为未设置，按原始计费重量×公斤单价估算">头程进位(kg，0不进位)</label><input type="number" id="wfs-air-step" value="0" min="0" step="any"></div><div class="f"><label for="wfs-air-storage-rate">仓储单价 (USD/ft³/月)</label><input type="number" id="wfs-air-storage-rate" value="0.75" min="0" step="any"></div><div class="f"><label for="wfs-air-storage-days">预估仓储天数</label><input type="number" id="wfs-air-storage-days" value="30" min="0" step="any"></div><div class="f"><label for="wfs-air-svcfee">额外仓库首件服务费 (￥)</label><input type="number" id="wfs-air-svcfee" value="0" min="0" step="any"></div><div class="f"><label for="wfs-air-svcnext">额外仓库续件服务费 (￥)</label><input type="number" id="wfs-air-svcnext" value="0" min="0" step="any"></div></div>
             <div id="wfs-air-preview" class="fee-preview">填写重量和长宽高后计算 WFS 配送费</div>
             <div class="fee-note">参考：CSN 普货直飞 · 整票 101 kg+，2026-09-15，<a href="https://vipjiage.com/en/quotes/美国空派限时速达、经济达、超大件" target="_blank" rel="noopener">美航物流公开报价 ↗</a>。头程单价可按实际报价修改。</div>
           </div>
@@ -1516,7 +1516,7 @@
           <div class="card" style="padding:12px 14px;margin-bottom:10px;border-left:3px solid #0aab7c">
             <div style="font-size:12px;font-weight:700;color:#0aab7c;margin-bottom:8px">SFF 国内直邮</div>
             <div class="g3" style="margin-bottom:8px">
-              <div class="f"><label>国际运费 (￥/kg)</label><input type="number" id="sff-freight-kg" value="98" min="0" step="0.01"></div>
+              <div class="f"><label>国际运费 (￥/kg)</label><input type="number" id="sff-freight-kg" value="98" min="0" step="0.01"></div><div class="f"><label for="sff-freight-step" title="按整单重量向上进位；0为未设置，按原始总重计费">直邮进位(kg，0不进位)</label><input type="number" id="sff-freight-step" value="0" min="0" step="any"></div>
               <div class="f"><label>挂号费 (￥/单)</label><input type="number" id="sff-registration-fee" value="18" min="0" step="0.01"></div>
               <div class="f"><label>国内快递费 (￥/单)</label><input type="number" id="sff-domestic-fee" value="1.72" min="0" step="0.01"></div>
             </div>
@@ -1719,6 +1719,7 @@
     "wfsSea": {
       "headRateCNY": 15.5,
       "dimDivisor": 6000,
+      "headStepKg": 0,
       "storageRateUSD": 0.75,
       "storageDays": 30,
       "firstCNY": 0,
@@ -1727,6 +1728,7 @@
     "wfsAir": {
       "headRateCNY": 54,
       "dimDivisor": 6000,
+      "headStepKg": 0,
       "storageRateUSD": 0.75,
       "storageDays": 30,
       "firstCNY": 0,
@@ -1734,6 +1736,7 @@
     },
     "sff": {
       "freightKgCNY": 98,
+      "freightStepKg": 0,
       "registrationCNY": 18,
       "domesticCNY": 1.72
     }
@@ -1751,6 +1754,22 @@
     const $ = id => document.getElementById(id);
     const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
     const _exprMap = new Map();
+    // Round only at UI/settlement boundaries; raw inputs and intermediate math stay exact.
+    const cleanFloatNoise = number => Number(number.toPrecision(15));
+    function roundDecimal(n, direction = 'up', places = 2) {
+      if (!Number.isFinite(n)) throw new Error('计算结果无效');
+      const factor = 10 ** places, scaled = cleanFloatNoise(n * factor);
+      const rounded = (direction === 'down' ? Math.floor(scaled) : Math.ceil(scaled)) / factor;
+      return Object.is(rounded, -0) ? 0 : rounded;
+    }
+    const fmt = value => roundDecimal(Number(value), 'up').toFixed(2);
+    const fmtProfit = value => roundDecimal(Number(value), 'down').toFixed(2);
+    const shownNumber = value => String(roundDecimal(Number(value), 'up'));
+    function billableWeightKg(raw, step) {
+      if (!Number.isFinite(raw) || raw < 0 || !Number.isFinite(step) || step < 0)
+        throw new Error('计费重量或计费步长无效');
+      return step === 0 ? raw : Math.ceil(cleanFloatNoise(raw / step)) * step;
+    }
     function _evalExpr(raw) {
       const s = String(raw).trim();
       if (s === '') return NaN;
@@ -1776,11 +1795,11 @@
       }
       const num = Number(value);
       el.dataset.num = String(num);
-      el.value = String(+num.toFixed(6));
+      el.value = shownNumber(num);
       el.removeAttribute('data-expr-editing');
       if (expr) {
         _exprMap.set(el, expr);
-        el.title = '等式：' + expr + ' = ' + (+num.toFixed(6));
+        el.title = '原始：' + expr + ' = ' + shownNumber(num);
       } else {
         _exprMap.set(el, '');
         el.title = '';
@@ -1804,8 +1823,7 @@
       const hasOp = /[+\-*/]/.test(raw.replace(/^-/, ''));
       const num = _evalExpr(raw);
       if (!isNaN(num)) {
-        applyExprValue(el, num, hasOp ? raw : '');
-        if (!hasOp) el.value = raw;
+        applyExprValue(el, num, raw);
       } else {
         el.removeAttribute('data-num');
         el.title = '无法识别，请输入数字或等式（如 9+1+2）';
@@ -1884,8 +1902,7 @@
     function kitDisplayValue(rawValue) {
       const raw = String(rawValue ?? '').trim(), num = _evalExpr(raw);
       if (!Number.isFinite(num)) return raw;
-      const hasOperator = /[+\-*/]/.test(raw.replace(/^-/, ''));
-      return hasOperator ? String(Number(num.toFixed(6))) : raw;
+      return shownNumber(num);
     }
     function renderKitRows() {
       const box = $('kit-rows');
@@ -1990,23 +2007,28 @@
     }
     const gv = id => {
       const el = $(id);
-      if (!el) return 0;
-      // For expr fields: prefer data-num (post-eval), else parse .value
+      if (!el || el.value === '') return 0;
       if (el.hasAttribute('data-expr-input')) {
-        const stored = el.dataset.num;
-        if (stored !== undefined && stored !== '') return Number(stored) || 0;
-        // field might be in display (non-focus) state with plain number
-        return Number(el.value) || 0;
+        const cached = el.dataset.num;
+        if (cached !== undefined && cached !== '') {
+          const number = Number(cached);
+          if (Number.isFinite(number) && number >= 0) return number;
+        }
+        const evaluated = _evalExpr(el.value);
+        if (!Number.isFinite(evaluated)) throw new Error('输入框 ' + id + ' 必须是有效数字或算式');
+        return evaluated;
       }
-      return Number(el.value || 0);
+      const number = Number(el.value);
+      if (!Number.isFinite(number)) throw new Error('输入框 ' + id + ' 不是有效数字');
+      return number;
     };
-    const integer = value => Math.max(1, Math.floor(Number(value) || 1));
-    const fmt = value => Number(value).toFixed(2);
-    const getAd = () => gv('ad-rate');
+    function integer(value) { const n = Number(value); if (!Number.isSafeInteger(n) || n < 1) throw new Error('数量须为正整数'); return n; }
+
+    const getAd = () => $('ad-rate')?.dataset.preciseValue !== undefined && $('ad-rate').value === $('ad-rate').dataset.displayedValue ? Number($('ad-rate').dataset.preciseValue) : gv('ad-rate');
     const KG_PER_LB = 0.45359237;
     const kgToLb = kg => kg / KG_PER_LB;
     const lbToKg = lb => lb * KG_PER_LB;
-    const formatWeight = value => Number(value.toFixed(6)).toString();
+    const formatWeight = value => shownNumber(value);
     const weightText = kg => `${formatWeight(kg)} kg / ${formatWeight(kgToLb(kg))} lb`;
     function normalizeWeightPair(kgValue, lbValue) {
       const hasKg = String(kgValue ?? '').trim() !== '', hasLb = String(lbValue ?? '').trim() !== '';
@@ -2028,7 +2050,7 @@
       applyExprValue(el, value, derivedFormula || (unchanged ? expr : ''));
     }
     function weightExpression(el) {
-      return _exprMap.get(el) || el.value;
+      return _exprMap.get(el) || (el.hasAttribute('data-expr-input') && el.dataset.num !== undefined ? el.dataset.num : el.value);
     }
     function writeWeightPair(kg, rowId, editedUnit) {
       const [kgInput, lbInput] = weightInputs(rowId);
@@ -2065,10 +2087,15 @@
     function readWeightKg(rowId) {
       const [kgInput, lbInput] = weightInputs(rowId);
       if (kgInput.value !== '') {
-        if (kgInput.value === kgInput.dataset.syncedWeightValue) return Number(kgInput.dataset.weightKg);
-        return Number(kgInput.value);
+        if (kgInput.hasAttribute('data-expr-editing')) return _evalExpr(kgInput.value);
+        if (kgInput.value === kgInput.dataset.syncedWeightValue && kgInput.dataset.weightKg !== undefined)
+          return Number(kgInput.dataset.weightKg);
+        return kgInput.hasAttribute('data-expr-input') && kgInput.dataset.num !== undefined
+          ? Number(kgInput.dataset.num) : Number(kgInput.value);
       }
-      return lbInput.value === '' ? 0 : lbToKg(Number(lbInput.value));
+      if (lbInput.value === '') return 0;
+      return lbInput.hasAttribute('data-expr-input') && lbInput.dataset.num !== undefined
+        ? lbToKg(Number(lbInput.dataset.num)) : lbToKg(Number(lbInput.value));
     }
     function updateWeightSummary() {
       const [kgInput, lbInput] = weightInputs(), kg = readWeightKg();
@@ -2241,14 +2268,14 @@
       sff: { name: 'SFF 国内直邮', kind: 'direct', cls: 'rcg' }
     };
     const MODE_FIELDS = {
-      wfsSea: [['头程单价(￥/kg)', 'headRateCNY'], ['材积系数(cm³/kg)', 'dimDivisor'], ['仓储单价(USD/ft³/月)', 'storageRateUSD'], ['预估仓储天数', 'storageDays'], ['额外仓库首件服务费(￥)', 'firstCNY'], ['额外仓库续件服务费(￥)', 'nextCNY']],
-      wfsAir: [['头程单价(￥/kg)', 'headRateCNY'], ['材积系数(cm³/kg)', 'dimDivisor'], ['仓储单价(USD/ft³/月)', 'storageRateUSD'], ['预估仓储天数', 'storageDays'], ['额外仓库首件服务费(￥)', 'firstCNY'], ['额外仓库续件服务费(￥)', 'nextCNY']],
-      sff: [['国际运费(￥/kg)', 'freightKgCNY'], ['挂号费(￥/单)', 'registrationCNY'], ['国内快递费(￥/单)', 'domesticCNY']]
+      wfsSea: [['头程单价(￥/kg)', 'headRateCNY'], ['材积系数(cm³/kg)', 'dimDivisor'], ['头程进位步长(kg，0不进位)', 'headStepKg'], ['仓储单价(USD/ft³/月)', 'storageRateUSD'], ['预估仓储天数', 'storageDays'], ['额外仓库首件服务费(￥)', 'firstCNY'], ['额外仓库续件服务费(￥)', 'nextCNY']],
+      wfsAir: [['头程单价(￥/kg)', 'headRateCNY'], ['材积系数(cm³/kg)', 'dimDivisor'], ['头程进位步长(kg，0不进位)', 'headStepKg'], ['仓储单价(USD/ft³/月)', 'storageRateUSD'], ['预估仓储天数', 'storageDays'], ['额外仓库首件服务费(￥)', 'firstCNY'], ['额外仓库续件服务费(￥)', 'nextCNY']],
+      sff: [['国际运费(￥/kg)', 'freightKgCNY'], ['整单进位步长(kg，0不进位)', 'freightStepKg'], ['挂号费(￥/单)', 'registrationCNY'], ['国内快递费(￥/单)', 'domesticCNY']]
     };
     const FIELD_IDS = {
-      wfsSea: { headRateCNY: 'wfs-sea-rate', dimDivisor: 'wfs-sea-divisor', storageRateUSD: 'wfs-sea-storage-rate', storageDays: 'wfs-sea-storage-days', firstCNY: 'wfs-sea-svcfee', nextCNY: 'wfs-sea-svcnext' },
-      wfsAir: { headRateCNY: 'wfs-air-rate', dimDivisor: 'wfs-air-divisor', storageRateUSD: 'wfs-air-storage-rate', storageDays: 'wfs-air-storage-days', firstCNY: 'wfs-air-svcfee', nextCNY: 'wfs-air-svcnext' },
-      sff: { freightKgCNY: 'sff-freight-kg', registrationCNY: 'sff-registration-fee', domesticCNY: 'sff-domestic-fee' }
+      wfsSea: { headRateCNY: 'wfs-sea-rate', dimDivisor: 'wfs-sea-divisor', headStepKg: 'wfs-sea-step', storageRateUSD: 'wfs-sea-storage-rate', storageDays: 'wfs-sea-storage-days', firstCNY: 'wfs-sea-svcfee', nextCNY: 'wfs-sea-svcnext' },
+      wfsAir: { headRateCNY: 'wfs-air-rate', dimDivisor: 'wfs-air-divisor', headStepKg: 'wfs-air-step', storageRateUSD: 'wfs-air-storage-rate', storageDays: 'wfs-air-storage-days', firstCNY: 'wfs-air-svcfee', nextCNY: 'wfs-air-svcnext' },
+      sff: { freightKgCNY: 'sff-freight-kg', freightStepKg: 'sff-freight-step', registrationCNY: 'sff-registration-fee', domesticCNY: 'sff-domestic-fee' }
     };
     const paramId = (key, prefix = 'p-') => prefix + (key === 'packingCNY' ? 'packing-fee' : key);
     const orderedParams = (config = C[cur]) => [...config.p.filter(([, key]) => key !== 'disc'), ...config.p.filter(([, key]) => key === 'disc')];
@@ -2303,20 +2330,23 @@
       if (!Number.isFinite(fees.dimDivisor) || fees.dimDivisor <= 0) throw new Error('头程材积系数须大于 0');
       return Math.max(product.weightKg, volume / fees.dimDivisor);
     }
+    function headBillableKg(product, fees) {
+      return billableWeightKg(headWeightKg(product, fees), fees.headStepKg || 0);
+    }
     function wfsMetrics(product) {
       const volume = packageVolumeCm3(product), unitLb = kgToLb(product.weightKg);
       const sides = [product.l, product.w, product.h].map(cm => cm / 2.54).sort((a, b) => b - a);
       const girth = sides[0] + 2 * (sides[1] + sides[2]);
-      if (unitLb > 150 + 1e-9 || sides[0] > 108 + 1e-9 || girth > 165 + 1e-9) {
+      if (cleanFloatNoise(unitLb) > 150 || cleanFloatNoise(sides[0]) > 108 || cleanFloatNoise(girth) > 165) {
         throw new Error('该商品超出 WFS 标准件范围，头程及大件配送须单独核价');
       }
       const type = Number(product.wfsType ?? 0);
       if (!Number.isInteger(type) || type < 0 || type > 3) throw new Error('请选择有效的 WFS 商品类型');
       const dimensionalLb = sides[0] * sides[1] * sides[2] / 139;
       // 0.25 lb 包装增重适用于标准件；小于 1 lb 的商品不比较体积重。
-      let shippingLb = Math.ceil((unitLb < 1 ? unitLb : Math.max(unitLb, dimensionalLb)) + 0.25 - 1e-9);
-      const oversize2 = sides[0] > 96 + 1e-9 || girth > 130 + 1e-9;
-      const oversize1 = sides[0] > 48 + 1e-9 || sides[1] > 30 + 1e-9 || girth > 105 + 1e-9;
+      let shippingLb = Math.ceil(cleanFloatNoise((unitLb < 1 ? unitLb : Math.max(unitLb, dimensionalLb)) + 0.25));
+      const oversize2 = cleanFloatNoise(sides[0]) > 96 || cleanFloatNoise(girth) > 130;
+      const oversize1 = cleanFloatNoise(sides[0]) > 48 || cleanFloatNoise(sides[1]) > 30 || cleanFloatNoise(girth) > 105;
       if (oversize2) shippingLb = Math.max(shippingLb, 90);
       let baseUSD;
       if (shippingLb <= 1) baseUSD = 3.45;
@@ -2338,7 +2368,7 @@
       if (CHANNELS[channel].kind === 'warehouse') {
         const metrics = wfsMetrics(product);
         rows.push(
-          { key: 'head', label: '头程费', amount: headWeightKg(product, fees) * fees.headRateCNY * qty / p.rate },
+          { key: 'head', label: '头程费', amount: headBillableKg(product, fees) * fees.headRateCNY * qty / p.rate },
           { key: 'delivery', label: 'WFS 配送费', amount: (metrics.baseUSD + metrics.oversizeUSD + metrics.attributeUSD) * qty },
           { key: 'storage', label: 'WFS 仓储费', amount: metrics.volumeFt3 * fees.storageRateUSD * fees.storageDays / 30 * qty },
           { key: 'service', label: '额外仓库服务费', amount: totalSvc(fees.firstCNY, fees.nextCNY, qty * integer(product.dqty)) / p.rate });
@@ -2346,7 +2376,7 @@
       } else {
         if (product.weightKg <= 0) throw new Error('SFF 国内直邮请填写有效商品重量(kg / lb)');
         rows.push(
-          { key: 'international', label: '国际运费', amount: product.weightKg * qty * fees.freightKgCNY / p.rate },
+          { key: 'international', label: '国际运费', amount: billableWeightKg(product.weightKg * qty, fees.freightStepKg || 0) * fees.freightKgCNY / p.rate },
           { key: 'registration', label: '挂号费', amount: fees.registrationCNY / p.rate },
           { key: 'domestic', label: '国内快递费', amount: fees.domesticCNY / p.rate });
       }
@@ -2358,7 +2388,7 @@
       const fixed = fixedCostRows(product, fees, p, channel).reduce((sum, row) => sum + row.amount, 0);
       const qty = integer(product.qty), rule = referralRule(p), warehouse = CHANNELS[channel].kind === 'warehouse';
       const other = FEE_PARAMS.filter(key => key !== 'comm').reduce((sum, key) => sum + p[key], p.profit) / 100;
-      if (!rule && !warehouse) return Math.round(fixed / (1 - other - p.comm / 100) * 100) / 100;
+      if (!rule && !warehouse) return roundDecimal(fixed / (1 - other - p.comm / 100), 'up');
 
       // Each exact threshold gets its own cent interval: a commission tier includes
       // its upper bound, while the WFS low-price surcharge excludes exactly $10.
@@ -2376,11 +2406,11 @@
         const denominator = 1 - other - formula.rate;
         if (denominator <= 0) continue;
         const needed = (fixed + lowFee + formula.biasUSD * qty) / denominator;
-        let cents = Math.max(lowerCents, Math.ceil(needed * 100 - 1e-8));
+        let cents = Math.max(lowerCents, Math.ceil(cleanFloatNoise(needed * 100)));
         if (!Number.isSafeInteger(cents) || cents > upperCents) continue;
         const revenue = cents / 100;
         const marginRemainder = revenue * (1 - other) - commissionAmount(revenue, product, p) - fixed - (warehouse && revenue / qty < 10 ? qty : 0);
-        if (marginRemainder < -1e-8) cents++;
+        if (marginRemainder < 0) cents++;
         if (cents <= upperCents) return cents / 100;
       }
       throw new Error('当前利润率与费用在所有佣金价格档均无法成立，请调整参数');
@@ -2430,7 +2460,7 @@
     function renderFulfillment() { Object.entries(FIELD_IDS).forEach(([channel, fields]) => Object.entries(fields).forEach(([key, id]) => { $(id).value = F[channel][key]; })); }
     function renderBatchParams() {
       $('batch-params-container').innerHTML = orderedParams().map(([label, key, value]) => paramInput(label, key, value, 'bp-', 'batch')).join('');
-      $('batch-fee-summary').textContent = `WFS 海运头程 ¥${F.wfsSea.headRateCNY}/kg，空运头程 ¥${F.wfsAir.headRateCNY}/kg；配送按 WFS 官方重量/尺寸/售价档计算，仓储按物流参数另算。SFF 国内直邮：¥${F.sff.freightKgCNY}/kg＋挂号 ¥${F.sff.registrationCNY}/单＋国内快递 ¥${F.sff.domesticCNY}/单。行内头程单价留空跟随物流参数；填0则不计头程。报价为整票档位的单件摊估。`;
+      $('batch-fee-summary').textContent = `WFS 海运头程 ¥${F.wfsSea.headRateCNY}/kg（步长${F.wfsSea.headStepKg || '未设置'}kg），空运头程 ¥${F.wfsAir.headRateCNY}/kg（步长${F.wfsAir.headStepKg || '未设置'}kg）；配送按 WFS 官方重量/尺寸/售价档计算，仓储按物流参数另算。SFF 国内直邮：¥${F.sff.freightKgCNY}/kg＋挂号 ¥${F.sff.registrationCNY}/单＋国内快递 ¥${F.sff.domesticCNY}/单。行内头程单价留空跟随物流参数；填0则不计头程。物流进位步长在物流参数里设置，默认0表示不擅自进位。报价为整票档位的单件摊估。`;
     }
     function go(key) {
       if (!C[key]) return;
@@ -2459,7 +2489,7 @@
         const out = $('wfs-' + slug + '-preview'); if (!out) continue;
         try {
           const m = wfsMetrics(product), fees = F[channel], p = getParams();
-          const head = headWeightKg(product, fees) * fees.headRateCNY / p.rate;
+          const head = headBillableKg(product, fees) * fees.headRateCNY / p.rate;
           const base = m.baseUSD + m.oversizeUSD + m.attributeUSD;
           const price = $('cost').value === '' ? null : solvePrice(product, fees, p, channel);
           const lowFee = price !== null && price / product.qty < 10 ? 1 : 0;
@@ -2471,7 +2501,7 @@
     function feeBasisView(product, fees, channel) {
       if (CHANNELS[channel].kind !== 'warehouse') return '挂号和国内快递按单计';
       const m = wfsMetrics(product);
-      return `头程计费 ${formatWeight(headWeightKg(product, fees))} kg/单位 · WFS 计费 ${m.shippingLb} lb/单位<br>额外仓库服务计费 ${product.qty * product.dqty} 件 · 预估仓储 ${fees.storageDays} 天`;
+      return `头程计费 ${formatWeight(headBillableKg(product, fees))} kg/单位 · WFS 计费 ${m.shippingLb} lb/单位<br>额外仓库服务计费 ${product.qty * product.dqty} 件 · 预估仓储 ${fees.storageDays} 天`;
     }
 
     function singleFees() { captureFulfillment(); return clone(F); }
@@ -2487,10 +2517,10 @@
       slices.push({ val: Math.max(0, result.afterAd), label: result.ad > 0 ? '广告后毛利' : '利润', color: COLORS.profit });
       if (result.ad > 0) slices.push({ val: result.ad, label: '广告费', color: COLORS.ad });
       return `<div data-pie-scope class="breakdown-grid"><div>${feeRows(result.rows, revenue, rate)}
-        <div class="rr bld" data-pie-key="利润"><span>利润${result.ad > 0 ? '（广告前）' : ''}</span><span>USD ${fmt(result.profit)}</span></div>
+        <div class="rr bld" data-pie-key="利润"><span>利润${result.ad > 0 ? '（广告前）' : ''}</span><span>USD ${fmtProfit(result.profit)}</span></div>
         ${result.ad > 0 ? `<div class="rr" data-pie-key="广告费"><span>广告费</span><span>USD ${fmt(result.ad)}</span></div>
-        <div class="rr bld" data-pie-key="广告后毛利"><span>广告后毛利</span><span style="color:${result.afterAd < 0 ? 'var(--red)' : 'var(--green)'}">USD ${fmt(result.afterAd)}</span></div>` : ''}
-        <div class="rr"><span>毛利率${result.ad > 0 ? '（广告后）' : ''}</span><span>${revenue > 0 ? fmt(result.afterAd / revenue * 100) : '0.00'}%</span></div>
+        <div class="rr bld" data-pie-key="广告后毛利"><span>广告后毛利</span><span style="color:${result.afterAd < 0 ? 'var(--red)' : 'var(--green)'}">USD ${fmtProfit(result.afterAd)}</span></div>` : ''}
+        <div class="rr"><span>毛利率${result.ad > 0 ? '（广告后）' : ''}</span><span>${revenue > 0 ? fmtProfit(result.afterAd / revenue * 100) : '0.00'}%</span></div>
         </div><div>${makePie(slices, 165, revenue).svg}</div></div>`;
     }
 
@@ -2525,20 +2555,40 @@
         .catch(() => { if (label) label.textContent = '复制失败，请手动复制'; });
     }
     function onAdInput(source) {
-      if (source === 'rate') $('ad-roi').value = getAd() > 0 ? +(100 / getAd()).toFixed(3) : '';
-      else $('ad-rate').value = gv('ad-roi') > 0 ? +(100 / gv('ad-roi')).toFixed(3) : '';
+      const edited = source === 'rate' ? $('ad-rate') : $('ad-roi');
+      delete edited.dataset.preciseValue;
+      delete edited.dataset.displayedValue;
+      const target = source === 'rate' ? $('ad-roi') : $('ad-rate');
+      const raw = Number(edited.value), precise = raw > 0 ? 100 / raw : null;
+      target.value = precise === null ? '' : shownNumber(precise);
+      if (precise === null) { delete target.dataset.preciseValue; delete target.dataset.displayedValue; }
+      else { target.dataset.preciseValue = String(precise); target.dataset.displayedValue = target.value; }
       if (!$('reswrap').classList.contains('hidden')) calc();
-      if ($('rev-price').value) calcReverse();
+      if ($('rev-price').value || $('rev-total').value) calcReverse();
     }
-    function syncRevTotal() { $('rev-total').value = $('rev-price').value ? fmt(gv('rev-price') * integer(gv('qty'))) : ''; }
-    function syncRevUnit() { $('rev-price').value = $('rev-total').value ? fmt(gv('rev-total') / integer(gv('qty'))) : ''; }
-
+    let reverseMode = 'unit';
+    function syncRevTotal() {
+      reverseMode = 'unit';
+      const rawUnit = $('rev-price').value;
+      $('rev-total').value = rawUnit === '' ? '' : fmt(Number(rawUnit) * integer(gv('qty')));
+    }
+    function syncRevUnit() {
+      reverseMode = 'total';
+      const rawTotal = $('rev-total').value;
+      $('rev-price').value = rawTotal === '' ? '' : fmt(Number(rawTotal) / integer(gv('qty')));
+    }
+    function syncRevQty() {
+      if (reverseMode === 'total') syncRevUnit(); else syncRevTotal();
+    }
+    function exactReverseRevenue(qty) {
+      return reverseMode === 'total' ? Number($('rev-total').value) : Number($('rev-price').value) * qty;
+    }
     function calcReverse() {
       const target = $('rev-result');
-      if (gv('rev-price') <= 0) { target.classList.add('hidden'); return; }
+      if (reverseMode === 'total' ? Number($('rev-total').value) <= 0 : Number($('rev-price').value) <= 0) { target.classList.add('hidden'); return; }
       try {
         captureParams(); const p = getParams(); validateParams(p, false);
-        const product = readProduct(), fees = singleFees(), revenue = gv('rev-price') * product.qty;
+        const product = readProduct(), fees = singleFees(), revenue = exactReverseRevenue(product.qty);
         const extra = gv('rev-extra') * product.qty;
         if (!Number.isFinite(extra) || extra < 0) throw new Error('额外收入须为非负数');
         target.innerHTML = Object.entries(CHANNELS).map(([channel, info]) => {
@@ -2546,11 +2596,11 @@
             const result = orderBreakdown(revenue, product, fees[channel], p, channel, getAd(), true, extra);
             const net = result.afterAd + extra;
             return `<div class="rc rcp" data-channel="${channel}"><div class="rl">${info.name} · 反推利润</div>
-              <div class="rs2" style="color:${net < 0 ? 'var(--red)' : 'var(--green)'}">${net < 0 ? '亏损' : '盈利'} · USD ${fmt(net)}</div>
+              <div class="rs2" style="color:${net < 0 ? 'var(--red)' : 'var(--green)'}">${net < 0 ? '亏损' : '盈利'} · USD ${fmtProfit(net)}</div>
               <div class="rbg">实际总重 ${product.weightKg > 0 ? weightText(product.weightKg * product.qty) : '未填写'}<br>${feeBasisView(product, fees[channel], channel)}${commissionCaption(revenue, product, p, extra)}</div>
               <div class="rr bld"><span>订单收入</span><span>USD ${fmt(revenue)}</span></div>
               <div class="rbk">${breakdownView(result, revenue, p.rate)}
-              ${extra ? `<div class="rr"><span>额外收入</span><span>USD ${fmt(extra)}</span></div><div class="rr bld"><span>含额外收入利润${result.ad > 0 ? '（广告后）' : ''}</span><span>USD ${fmt(net)}</span></div><div class="rr"><span>含额外收入毛利率</span><span>${fmt(net / (revenue + extra) * 100)}%</span></div>` : ''}</div></div>`;
+              ${extra ? `<div class="rr"><span>额外收入</span><span>USD ${fmt(extra)}</span></div><div class="rr bld"><span>含额外收入利润${result.ad > 0 ? '（广告后）' : ''}</span><span>USD ${fmtProfit(net)}</span></div><div class="rr"><span>含额外收入毛利率</span><span>${fmtProfit(net / (revenue + extra) * 100)}%</span></div>` : ''}</div></div>`;
           } catch (error) { return channelError(channel, error); }
         }).join('');
         target.classList.remove('hidden');
@@ -2787,7 +2837,7 @@
         invalidateResults();
       }));
       updateWeightSummary();
-      ['cost', 'qty', 'dqty', 'diml', 'dimw', 'dimh', 'wfs-type', ...Object.values(FIELD_IDS).flatMap(Object.values)].forEach(id => $(id).addEventListener('input', () => { captureFulfillment(); invalidateResults(); if (id === 'qty') { syncRevTotal(); updateWeightSummary(); } }));
+      ['cost', 'qty', 'dqty', 'diml', 'dimw', 'dimh', 'wfs-type', ...Object.values(FIELD_IDS).flatMap(Object.values)].forEach(id => $(id).addEventListener('input', () => { captureFulfillment(); invalidateResults(); if (id === 'qty') { syncRevQty(); updateWeightSummary(); } }));
       document.addEventListener('keydown', event => {
         if ($('referral-overlay').style.display === 'flex') {
           if (event.key === 'Escape') { event.preventDefault(); closeCommissionPicker(); }
