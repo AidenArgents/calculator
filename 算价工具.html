@@ -1787,8 +1787,19 @@
       }
     }
     function _exprBlur(el) {
-      el.removeAttribute('data-expr-editing');
+      const hadFocus = el.hasAttribute('data-expr-editing');
+      const before = el.dataset.exprValueAtFocus;
+      const previousExpr = _exprMap.get(el) || '';
       const raw = el.value.trim();
+      el.removeAttribute('data-expr-editing');
+      delete el.dataset.exprValueAtFocus;
+      // Clicking in/out without editing must not convert again and overwrite another formula.
+      if (hadFocus && ((previousExpr !== '' && raw === previousExpr) ||
+          (previousExpr === '' && raw === before)) && Number.isFinite(_evalExpr(raw))) {
+        applyExprValue(el, _evalExpr(raw), previousExpr);
+        if (!previousExpr) el.value = raw;
+        return;
+      }
       if (raw === '') { clearExprState(el); el.dispatchEvent(new Event('input', { bubbles: true })); return; }
       const hasOp = /[+\-*/]/.test(raw.replace(/^-/, ''));
       const num = _evalExpr(raw);
@@ -1803,6 +1814,7 @@
     }
     function _exprFocus(el) {
       if (el.readOnly) return;
+      el.dataset.exprValueAtFocus = el.value;
       el.setAttribute('data-expr-editing', '1');
       const stored = _exprMap.get(el);
       if (stored) el.value = stored;
@@ -2007,14 +2019,23 @@
     function weightInputs(rowId) {
       return rowId === undefined ? [$('weight'), $('weight-lb')] : [$('b' + rowId + '-wt'), $('b' + rowId + '-wtlb')];
     }
+    function applySyncedWeightValue(el, value) {
+      // Keep the raw arithmetic formula when kg/lb conversion yields the same value.
+      // Display rounding (six decimals) must not erase the formula.
+      const expr = _exprMap.get(el) || '';
+      const previous = expr ? _evalExpr(expr) : NaN;
+      const unchanged = Number.isFinite(previous) &&
+        Math.abs(previous - value) <= Math.max(0.000001, Math.abs(value) * 0.00000001);
+      applyExprValue(el, value, unchanged ? expr : '');
+    }
     function writeWeightPair(kg, rowId, editedUnit) {
       const [kgInput, lbInput] = weightInputs(rowId);
       if (editedUnit !== 'kg') {
-        if (kgInput.hasAttribute('data-expr-input')) applyExprValue(kgInput, kg);
+        if (kgInput.hasAttribute('data-expr-input')) applySyncedWeightValue(kgInput, kg);
         else kgInput.value = formatWeight(kg);
       }
       if (editedUnit !== 'lb') {
-        if (lbInput.hasAttribute('data-expr-input')) applyExprValue(lbInput, kgToLb(kg));
+        if (lbInput.hasAttribute('data-expr-input')) applySyncedWeightValue(lbInput, kgToLb(kg));
         else lbInput.value = formatWeight(kgToLb(kg));
       }
       kgInput.dataset.weightKg = String(kg);
