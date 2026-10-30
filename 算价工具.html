@@ -1806,6 +1806,9 @@
       }
     }
     function _exprBlur(el) {
+      // Read-only combo totals are computed from parts. Blurring a formatted
+      // display must never turn 1.11 lb into raw input or 23.48 into cost.
+      if (el.readOnly || !el.hasAttribute('data-expr-editing')) return;
       const hadFocus = el.hasAttribute('data-expr-editing');
       const before = el.dataset.exprValueAtFocus;
       const previousExpr = _exprMap.get(el) || '';
