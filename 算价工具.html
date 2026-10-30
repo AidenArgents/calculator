@@ -1502,13 +1502,13 @@
           <div class="fee-note" style="margin-bottom:12px">两种入仓方式共用 <a href="https://marketplacelearn.walmart.com/guides/Walmart%20Fulfillment%20Services%20(WFS)/WFS%20basics/WFS-fees" target="_blank" rel="noopener">WFS 官方配送费表 ↗</a>（2026-05-27 更新）：按每个填写单位的包装重量、尺寸计算；个数/套沿用原有逐单位计费。售价低于 $10/单位另加 $1。<br>仓储按体积 × 单价 × 天数/30 估算：常规 $0.75；旺季仓龄超30天、或仓龄366–450天 $2.25；仓龄超450天 $7.50/ft³/月，请按预计仓龄修改。<br>头程按实重与材积重较大值摊估；系数默认6000，可按货代调整。物流计费步长默认0（未指定额外进位），可按货代实际规则调整。报价档位针对整票货物，外箱最低计费、外箱重量及偏远等附加费需另摊，不能把单个小件当作独立整票。</div>
           <div class="card" style="padding:12px 14px;margin-bottom:10px;border-left:3px solid #3860e8">
             <div style="font-size:12px;font-weight:700;color:#3860e8;margin-bottom:8px">WFS 海运</div>
-            <div class="g2" style="margin-bottom:8px"><div class="f"><label for="wfs-sea-rate">头程单价 (￥/kg)</label><input type="number" id="wfs-sea-rate" value="15.5" min="0" step="any"></div><div class="f"><label for="wfs-sea-divisor">材积系数 (cm³/kg)</label><input type="number" id="wfs-sea-divisor" value="6000" min="1" step="any"></div><div class="f"><label for="wfs-sea-step" title="每件头程按此进位，0为未设置，按原始计费重量×公斤单价估算">头程进位(kg，0不进位)</label><input type="number" id="wfs-sea-step" value="0" min="0" step="any"></div><div class="f"><label for="wfs-sea-storage-rate">仓储单价 (USD/ft³/月)</label><input type="number" id="wfs-sea-storage-rate" value="0.75" min="0" step="any"></div><div class="f"><label for="wfs-sea-storage-days">预估仓储天数</label><input type="number" id="wfs-sea-storage-days" value="30" min="0" step="any"></div><div class="f"><label for="wfs-sea-svcfee">额外仓库首件服务费 (￥)</label><input type="number" id="wfs-sea-svcfee" value="0" min="0" step="any"></div><div class="f"><label for="wfs-sea-svcnext">额外仓库续件服务费 (￥)</label><input type="number" id="wfs-sea-svcnext" value="0" min="0" step="any"></div></div>
+            <div class="g2" style="margin-bottom:8px"><div class="f"><label for="wfs-sea-rate">头程单价 (￥/kg)</label><input type="number" id="wfs-sea-rate" value="15.5" min="0" step="any"></div><div class="f"><label for="wfs-sea-divisor">材积系数 (cm³/kg)</label><input type="number" id="wfs-sea-divisor" value="6000" min="1" step="any"></div><div class="f"><label for="wfs-sea-step" title="每件头程按此进位，0为未设置，按原始计费重量×公斤单价估算">头程进位(kg，0不进位)</label><input type="text" inputmode="decimal" data-freight-step id="wfs-sea-step" value="0" autocomplete="off" spellcheck="false"></div><div class="f"><label for="wfs-sea-storage-rate">仓储单价 (USD/ft³/月)</label><input type="number" id="wfs-sea-storage-rate" value="0.75" min="0" step="any"></div><div class="f"><label for="wfs-sea-storage-days">预估仓储天数</label><input type="number" id="wfs-sea-storage-days" value="30" min="0" step="any"></div><div class="f"><label for="wfs-sea-svcfee">额外仓库首件服务费 (￥)</label><input type="number" id="wfs-sea-svcfee" value="0" min="0" step="any"></div><div class="f"><label for="wfs-sea-svcnext">额外仓库续件服务费 (￥)</label><input type="number" id="wfs-sea-svcnext" value="0" min="0" step="any"></div></div>
             <div id="wfs-sea-preview" class="fee-preview">填写重量和长宽高后计算 WFS 配送费</div>
             <div class="fee-note">参考：美森 CLX 正班 · 美西 · 整票 100 kg+，2026-10-09，<a href="https://vipjiage.com/en/quotes/美森正班.加班、以星、普船、快递派" target="_blank" rel="noopener">美航物流公开报价 ↗</a>。头程单价可按实际报价修改。</div>
           </div>
           <div class="card" style="padding:12px 14px;margin-bottom:10px;border-left:3px solid #e07b00">
             <div style="font-size:12px;font-weight:700;color:#e07b00;margin-bottom:8px">WFS 空运</div>
-            <div class="g2" style="margin-bottom:8px"><div class="f"><label for="wfs-air-rate">头程单价 (￥/kg)</label><input type="number" id="wfs-air-rate" value="54" min="0" step="any"></div><div class="f"><label for="wfs-air-divisor">材积系数 (cm³/kg)</label><input type="number" id="wfs-air-divisor" value="6000" min="1" step="any"></div><div class="f"><label for="wfs-air-step" title="每件头程按此进位，0为未设置，按原始计费重量×公斤单价估算">头程进位(kg，0不进位)</label><input type="number" id="wfs-air-step" value="0" min="0" step="any"></div><div class="f"><label for="wfs-air-storage-rate">仓储单价 (USD/ft³/月)</label><input type="number" id="wfs-air-storage-rate" value="0.75" min="0" step="any"></div><div class="f"><label for="wfs-air-storage-days">预估仓储天数</label><input type="number" id="wfs-air-storage-days" value="30" min="0" step="any"></div><div class="f"><label for="wfs-air-svcfee">额外仓库首件服务费 (￥)</label><input type="number" id="wfs-air-svcfee" value="0" min="0" step="any"></div><div class="f"><label for="wfs-air-svcnext">额外仓库续件服务费 (￥)</label><input type="number" id="wfs-air-svcnext" value="0" min="0" step="any"></div></div>
+            <div class="g2" style="margin-bottom:8px"><div class="f"><label for="wfs-air-rate">头程单价 (￥/kg)</label><input type="number" id="wfs-air-rate" value="54" min="0" step="any"></div><div class="f"><label for="wfs-air-divisor">材积系数 (cm³/kg)</label><input type="number" id="wfs-air-divisor" value="6000" min="1" step="any"></div><div class="f"><label for="wfs-air-step" title="每件头程按此进位，0为未设置，按原始计费重量×公斤单价估算">头程进位(kg，0不进位)</label><input type="text" inputmode="decimal" data-freight-step id="wfs-air-step" value="0" autocomplete="off" spellcheck="false"></div><div class="f"><label for="wfs-air-storage-rate">仓储单价 (USD/ft³/月)</label><input type="number" id="wfs-air-storage-rate" value="0.75" min="0" step="any"></div><div class="f"><label for="wfs-air-storage-days">预估仓储天数</label><input type="number" id="wfs-air-storage-days" value="30" min="0" step="any"></div><div class="f"><label for="wfs-air-svcfee">额外仓库首件服务费 (￥)</label><input type="number" id="wfs-air-svcfee" value="0" min="0" step="any"></div><div class="f"><label for="wfs-air-svcnext">额外仓库续件服务费 (￥)</label><input type="number" id="wfs-air-svcnext" value="0" min="0" step="any"></div></div>
             <div id="wfs-air-preview" class="fee-preview">填写重量和长宽高后计算 WFS 配送费</div>
             <div class="fee-note">参考：CSN 普货直飞 · 整票 101 kg+，2026-09-15，<a href="https://vipjiage.com/en/quotes/美国空派限时速达、经济达、超大件" target="_blank" rel="noopener">美航物流公开报价 ↗</a>。头程单价可按实际报价修改。</div>
           </div>
@@ -1516,7 +1516,7 @@
           <div class="card" style="padding:12px 14px;margin-bottom:10px;border-left:3px solid #0aab7c">
             <div style="font-size:12px;font-weight:700;color:#0aab7c;margin-bottom:8px">SFF 国内直邮</div>
             <div class="g3" style="margin-bottom:8px">
-              <div class="f"><label>国际运费 (￥/kg)</label><input type="number" id="sff-freight-kg" value="98" min="0" step="0.01"></div><div class="f"><label for="sff-freight-step" title="按整单重量向上进位；0为未设置，按原始总重计费">直邮进位(kg，0不进位)</label><input type="number" id="sff-freight-step" value="0" min="0" step="any"></div>
+              <div class="f"><label>国际运费 (￥/kg)</label><input type="number" id="sff-freight-kg" value="98" min="0" step="0.01"></div><div class="f"><label for="sff-freight-step" title="按整单重量向上进位；0为未设置，按原始总重计费">直邮进位(kg，0不进位)</label><input type="text" inputmode="decimal" data-freight-step id="sff-freight-step" value="0" autocomplete="off" spellcheck="false"></div>
               <div class="f"><label>挂号费 (￥/单)</label><input type="number" id="sff-registration-fee" value="18" min="0" step="0.01"></div>
               <div class="f"><label>国内快递费 (￥/单)</label><input type="number" id="sff-domestic-fee" value="1.72" min="0" step="0.01"></div>
             </div>
@@ -1976,8 +1976,8 @@
       renderKitRows();
       applyKitTotals();
     }
-    function applyKitTotals() {
-      if (productFillMode !== 'kit') return;
+    function computeKitTotals() {
+      // The original component inputs are authoritative, never the rounded summary fields.
       const active = kitParts.map((part, i) => ({ part, i })).filter(({ part }) =>
         [part.name, part.cost, part.wt].some(value => String(value).trim() !== ''));
       const requiresWeight = active.some(({ part }) => String(part.wt).trim() !== '');
@@ -1986,19 +1986,29 @@
       active.forEach(({ part, i }) => {
         const label = '第' + (i + 1) + '行', qty = Number(part.qty);
         const c = _evalExpr(part.cost), w = _evalExpr(part.wt);
-        if (!Number.isInteger(qty) || qty < 1) errors.push(label + '数量必须为正整数');
+        if (!Number.isSafeInteger(qty) || qty < 1) errors.push(label + '数量必须为正整数');
         if (!Number.isFinite(c)) errors.push(label + '成本缺失或算式无效');
         if (requiresWeight && !Number.isFinite(w)) errors.push(label + '重量缺失或算式无效');
-        if (Number.isInteger(qty) && qty >= 1) {
+        if (Number.isSafeInteger(qty) && qty >= 1) {
           if (Number.isFinite(c)) cost += c * qty;
           if (Number.isFinite(w)) weight += w * qty;
         }
       });
-      const warning = $('kit-warning');
-      warning.textContent = errors.join('；');
-      warning.style.display = errors.length ? 'block' : 'none';
-      applyExprValue($('cost'), errors.length || !active.length ? '' : cost);
-      if (!errors.length && requiresWeight) writeWeightPair(weight, undefined, 'both');
+      return { cost, weight, hasParts: active.length > 0, requiresWeight, errors };
+    }
+    function validKitTotals() {
+      const totals = computeKitTotals();
+      if (!totals.hasParts) throw new Error('请先填写组合装配件');
+      if (totals.errors.length) throw new Error(totals.errors.join('；'));
+      return totals;
+    }
+    function applyKitTotals() {
+      if (productFillMode !== 'kit') return;
+      const totals = computeKitTotals(), warning = $('kit-warning');
+      warning.textContent = totals.errors.join('；');
+      warning.style.display = totals.errors.length ? 'block' : 'none';
+      applyExprValue($('cost'), totals.errors.length || !totals.hasParts ? '' : totals.cost);
+      if (!totals.errors.length && totals.requiresWeight) writeWeightPair(totals.weight, undefined, 'both');
       else {
         applyExprValue($('weight'), '');
         applyExprValue($('weight-lb'), '');
@@ -2009,6 +2019,10 @@
       invalidateResults();
     }
     const gv = id => {
+      if (productFillMode === 'kit' && id === 'cost') {
+        const t = computeKitTotals();
+        return !t.hasParts || t.errors.length ? 0 : t.cost;
+      }
       const el = $(id);
       if (!el || el.value === '') return 0;
       if (el.hasAttribute('data-expr-input')) {
@@ -2021,7 +2035,8 @@
         if (!Number.isFinite(evaluated)) throw new Error('输入框 ' + id + ' 必须是有效数字或算式');
         return evaluated;
       }
-      const number = Number(el.value);
+      const raw = el.hasAttribute('data-freight-step') ? el.value.trim().replace(/[,，]/g, '.') : el.value;
+      const number = Number(raw);
       if (!Number.isFinite(number)) throw new Error('输入框 ' + id + ' 不是有效数字');
       return number;
     };
@@ -2088,6 +2103,10 @@
       if (rowId === undefined) updateWeightSummary();
     }
     function readWeightKg(rowId) {
+      if (rowId === undefined && productFillMode === 'kit') {
+        const t = computeKitTotals();
+        return !t.hasParts || t.errors.length ? 0 : t.weight;
+      }
       const [kgInput, lbInput] = weightInputs(rowId);
       if (kgInput.value !== '') {
         if (kgInput.hasAttribute('data-expr-editing')) return _evalExpr(kgInput.value);
@@ -2483,6 +2502,7 @@
       if (mode === 'batch') renderBatchParams();
     }
     function readProduct() {
+      if (productFillMode === 'kit') validKitTotals();
       if ($('cost').value === '') throw new Error('请填写商品成本');
       return { cost: gv('cost'), weightKg: readWeightKg(), qty: integer(gv('qty')), dqty: integer(gv('dqty')), l: gv('diml'), w: gv('dimw'), h: gv('dimh'), wfsType: gv('wfs-type') };
     }
@@ -2840,7 +2860,38 @@
         invalidateResults();
       }));
       updateWeightSummary();
-      ['cost', 'qty', 'dqty', 'diml', 'dimw', 'dimh', 'wfs-type', ...Object.values(FIELD_IDS).flatMap(Object.values)].forEach(id => $(id).addEventListener('input', () => { captureFulfillment(); invalidateResults(); if (id === 'qty') { syncRevQty(); updateWeightSummary(); } }));
+      // On blur a kit display is always regenerated from original component inputs.
+      // This is independent of the browser's handling of read-only focus events.
+      ['cost', 'weight', 'weight-lb'].forEach(id => $(id).addEventListener('blur', () => {
+        if (productFillMode === 'kit') applyKitTotals();
+      }));
+      document.querySelectorAll('[data-freight-step]').forEach(el => {
+        el.addEventListener('blur', () => {
+          const raw = el.value.trim().replace(/[,，]/g, '.');
+          if (raw === '') {
+            el.value = '0';
+          } else if (/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(raw)) {
+            el.value = String(Number(raw));
+          } else {
+            el.setCustomValidity('请输入非负数字，例如 0.5');
+            el.reportValidity();
+            return;
+          }
+          el.setCustomValidity('');
+          captureFulfillment();
+          invalidateResults();
+        });
+        el.addEventListener('input', () => el.setCustomValidity(''));
+      });
+      ['cost', 'qty', 'dqty', 'diml', 'dimw', 'dimh', 'wfs-type', ...Object.values(FIELD_IDS).flatMap(Object.values)].forEach(id => $(id).addEventListener('input', () => {
+        if (document.activeElement?.hasAttribute('data-freight-step')) {
+          const raw = document.activeElement.value.trim().replace(/[,，]/g, '.');
+          if (raw !== '' && !/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(raw)) return;
+        }
+        captureFulfillment();
+        invalidateResults();
+        if (id === 'qty') { syncRevQty(); updateWeightSummary(); }
+      }));
       document.addEventListener('keydown', event => {
         if ($('referral-overlay').style.display === 'flex') {
           if (event.key === 'Escape') { event.preventDefault(); closeCommissionPicker(); }
